@@ -1,0 +1,17 @@
+
+- Coordenadas dos vertices das areas, convertidas em X,Y (comparar com coordenada do hospital)
+- Coordenadas dos Centros em X,Y
+- https://wrf.ecse.rpi.edu//Research/Short_Notes/pnpoly.html
+-
+
+1.  Input - codigo postal
+    Output - coordenadas gps
+
+2.  Inputs - coordenadas gps origem e destino
+    Output - distancia x,y
+
+3.  Inputs - ponto, lista de listas de pontos (poligonos)
+    Output - poligono a que pertence
+
+
+Input - Coordenada
