@@ -19,11 +19,11 @@ def IsPointInPolygon( point, polygon )
   maxX = polygon[0]['lon']
   minY = polygon[0]['lat']
   maxY = polygon[0]['lat']
-  for i in 0..polygon.length do
-    minX = min( polygon[i]['lon'], minX )
-    maxX = max( polygon[i]['lon'], maxX )
-    minY = min( polygon[i]['lat'], minY )
-    maxY = max( polygon[i]['lat'], maxY )
+  for i in polygon do
+    minX = min( i['lon'], minX )
+    maxX = max( i['lon'], maxX )
+    minY = min( i['lat'], minY )
+    maxY = max( i['lat'], maxY )
   end
 
   if ( point['lon'] < minX || point['lon'] > maxX || point['lat'] < minY || point['lat'] > maxY )
@@ -32,16 +32,41 @@ def IsPointInPolygon( point, polygon )
 
   inside = false
 
-  for i in 0..polygon.length - 1 do
+  i=0
+  j=polygon.length-1
+  while i<polygon.length do
     if ( ( polygon[i]['lat'] > point['lat'] ) != ( polygon[j]['lat'] > point['lat'] ) and
-          point['lon'] < ( polygon[j]['lon'] - polygon[i]['lon'] ) * ( point['lat'] - polygon[i]['lat'] ) / ( polygon[j]['lat'] - polygon[i]['lat'] ) + polygon[i]['lon'] )
-      inside = !inside
+        point['lon'] < ( polygon[j]['lon'] - polygon[i]['lon'] ) * ( point['lat'] - polygon[i]['lat'] ) / ( polygon[j]['lat'] - polygon[i]['lat'] ) + polygon[i]['lon'] )
+        inside = !inside
     end
+    j=i
+    i=i+1
   end
+
   return inside
 end
 
 
+point = { 'lat' => 1,
+          'lon' => 1
+        }
+
+poly = [
+  { 'lat' => 0,
+    'lon' => 0
+  },
+  { 'lat' => 2,
+    'lon' => 0
+  },
+  { 'lat' => 0,
+    'lon' => 2
+  },
+  { 'lat' => 2,
+    'lon' => 2
+  }
+]
+
+puts IsPointInPolygon(point,poly)
 
 # def readCSV(filename)
 #     data = CSV.read(filename, { encoding: "UTF-8", headers: true, header_converters: :symbol, converters: :all } )
