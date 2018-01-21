@@ -11,3 +11,14 @@
 5. If point belongs, load clinics coordinates for respective polygon
 6. Calculate distance to each clinic
 7. Return closest, or list per distance
+
+
+
+
+
+
+
+
+# Google API
+
+https://developers.google.com/maps/documentation/javascript/reference#poly
