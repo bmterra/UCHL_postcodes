@@ -16,8 +16,8 @@
 
 
 # All postal codes solution
-http://postgis.net
-https://www.doogal.co.uk/london_postcodes.php
+- http://postgis.net
+- https://www.doogal.co.uk/london_postcodes.php
 
 
 # Google API
