@@ -1,78 +1,63 @@
-require 'json'
-require 'base64'
-require 'openssl'
-require 'net/http'
-require 'geo_calc'
+require_relative 'lib/poly'
+require_relative 'lib/clinics'
 
-require 'csv'
+require 'pp'
 
-def max (a,b)
-  a>b ? a : b
-end
+# 1. list files
+# 2. read files to mem
+# 3. wait for call
+# 4.
 
-def min (a,b)
-  a<b ? a : b
-end
-
-def IsPointInPolygon( point, polygon )
-  minX = polygon[0]['lon']
-  maxX = polygon[0]['lon']
-  minY = polygon[0]['lat']
-  maxY = polygon[0]['lat']
-  for i in polygon do
-    minX = min( i['lon'], minX )
-    maxX = max( i['lon'], maxX )
-    minY = min( i['lat'], minY )
-    maxY = max( i['lat'], maxY )
-  end
-
-  if ( point['lon'] < minX || point['lon'] > maxX || point['lat'] < minY || point['lat'] > maxY )
-    return false
-  end
-
-  inside = false
-
-  i=0
-  j=polygon.length-1
-  while i<polygon.length do
-    if ( ( polygon[i]['lat'] > point['lat'] ) != ( polygon[j]['lat'] > point['lat'] ) and
-        point['lon'] < ( polygon[j]['lon'] - polygon[i]['lon'] ) * ( point['lat'] - polygon[i]['lat'] ) / ( polygon[j]['lat'] - polygon[i]['lat'] ) + polygon[i]['lon'] )
-        inside = !inside
-    end
-    j=i
-    i=i+1
-  end
-
-  return inside
-end
-
-
-point = { 'lat' => 1,
-          'lon' => 1
-        }
-
-poly = [
-  { 'lat' => 0,
-    'lon' => 0
-  },
-  { 'lat' => 2,
-    'lon' => 0
-  },
-  { 'lat' => 0,
-    'lon' => 2
-  },
-  { 'lat' => 2,
-    'lon' => 2
-  }
-]
-
-puts IsPointInPolygon(point,poly)
-
-# def readCSV(filename)
-#     data = CSV.read(filename, { encoding: "UTF-8", headers: true, header_converters: :symbol, converters: :all } )
-#     return data.map { |d| d.to_hash }
-# end
+# Class runEngine {
 #
+#     Hash dataset
+#
+#    Function loadFiles {
+#      # List files in dir
+#      Dir["regions/*.csv"].each do |file_name|
+#        puts file_name
+#      end
+#      # Load files to dataset
+#    }
+#
+#    Function checkPoint(lat,lon) {
+#      point = { 'lat' => lat,
+#                'lon' => lon
+#              }
+#       # for each dataset poly
+#
+#      if IsPointInPolygon(point,poly) {
+#        # poly
+#        return clinics
+#      }
+#    }
+#
+# }
+#
+#
+#
+# poly = [
+#   { 'lat' => 0,
+#     'lon' => 0
+#   },
+#   { 'lat' => 2,
+#     'lon' => 0
+#   },
+#   { 'lat' => 0,
+#     'lon' => 2
+#   },
+#   { 'lat' => 2,
+#     'lon' => 2
+#   }
+# ]
+#
+#puts IsPointInPolygon(point,poly)
+
+object = Clinics.new
+
+pp object.clinics
+
+
 # def getLatLng(postal_code)
 #     api='AIzaSyBlQB6wQrQF2bszfv3hEKKOss1MFHSAqBI'
 #

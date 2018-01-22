@@ -1,0 +1,36 @@
+require 'csv'
+
+class Clinics
+    def initialize
+      Hash @clinics = {}
+      # List files in dir
+      Dir["regions/*.csv"].each do |file_name|
+        # puts file_name
+        csv_text = File.read(file_name)
+        csv = CSV.parse(csv_text, :headers => true)
+        content = []
+        csv.each do |row|
+          content << row.to_hash
+        end
+
+        region_id = file_name[8..10]
+        if file_name.include? 'clinics'
+          if @clinics.include? region_id
+            @clinics[region_id]['clinics'] = content
+          else
+            @clinics[region_id] = {'clinics' => content}
+          end
+        else # poly
+          if @clinics.include? region_id
+            @clinics[region_id]['poly'] = content
+          else
+            @clinics[region_id] = {'poly' => content}
+          end
+        end
+      end
+    end
+
+    def clinics
+      @clinics
+    end
+end

@@ -25,10 +25,27 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
     <script>
 
+    function callAPI(address) {
+      var data = { 'address': address};
+      var opts = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {}
+      };
+      fetch('/postal_code', opts).then(function (response) {
+        return response.json();
+      })
+      .then(function (body) {
+        document.getElementById('location').innerHTML = body['value']
+      });
+    }
 
   function initialize() {
         var address = (document.getElementById('pac-input'));
-        var autocomplete = new google.maps.places.Autocomplete(address);
+        var options = {
+        };
+
+        var autocomplete = new google.maps.places.Autocomplete(address, options);
         autocomplete.setTypes(['geocode']);
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
             var place = autocomplete.getPlace();
@@ -51,6 +68,8 @@
         /*********************************************************************/
         document.getElementById('lat').innerHTML = place.geometry.location.lat();
         document.getElementById('long').innerHTML = place.geometry.location.lng();
+        // Do call to service
+        callAPI(address)
         });
   }
 
@@ -63,5 +82,6 @@
         placeholder="Enter a location">
 <div id="lat"></div>
 <div id="long"></div>
+<div id="location"></div>
 </body>
 </html>
