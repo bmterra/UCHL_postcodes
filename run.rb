@@ -57,7 +57,21 @@ object = Clinics.new
 
 pp object.clinics
 
+for key in object.clinics.keys do
+  poly = object.clinics[key]['poly']
+  clinics = object.clinics[key]['clinics']
+  region = key
+  if IsPointInPolygon(point,poly)
+    return {
+      region => region,
+      clinics => clinics
+    }
+  end
+end
 
+return {
+  message => "Outside."
+}
 # def getLatLng(postal_code)
 #     api='AIzaSyBlQB6wQrQF2bszfv3hEKKOss1MFHSAqBI'
 #

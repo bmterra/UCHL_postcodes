@@ -10,7 +10,10 @@ class Clinics
         csv = CSV.parse(csv_text, :headers => true)
         content = []
         csv.each do |row|
-          content << row.to_hash
+          r = row.to_hash
+          r['lat'] = r['lat'].to_f
+          r['lon'] = r['lon'].to_f
+          content << r
         end
 
         region_id = file_name[8..10]
