@@ -11,8 +11,8 @@ RUN /bin/bash -l -c "rvm install ruby"
 RUN /bin/bash -l -c "gem install bundler"
 RUN mkdir /app
 
-ADD .. /app
+ADD . /app
 
-RUN cd /app; bundler install
+RUN /bin/bash -l -c "cd /app; bundler install"
 
 EXPOSE 80
