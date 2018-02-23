@@ -6,6 +6,7 @@
 
 1. Get Postal code
 2. Get Coordinates from postal code
+wget "https://www.google.com/maps/d/u/1/kml?mid=1SpVytCgadcq_veNJaTq_E_aAsBjXMN0_&output=kml&lid=djxCNg32Ri4&forcekml=1&cid=mp&cv=9cs9bHQCIao.pt_PT." -O text.kml
 3. Load polygons coordinates from csv / mem
 4. For each set, check if point belongs
 5. If point belongs, load clinics coordinates for respective polygon
@@ -23,3 +24,6 @@
 # Google API
 
 https://developers.google.com/maps/documentation/javascript/reference#poly
+
+# Thin + lighttpd + sinatra
+http://recipes.sinatrarb.com/p/deployment/lighttpd_proxied_to_thin

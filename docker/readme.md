@@ -7,6 +7,14 @@ apt-get install -y  rvm
 source /usr/share/rvm/scripts/rvm && rvm install ruby
 gem install bundler
 
+
+####
+build
+apt install -y ruby build-essential ruby-dev
+gem install fpm-cookery
+
+####
+
 https://github.com/docker-library/ruby/blob/c9a4472a019d18aba1fdab6a63b96474b40ca191/2.5/stretch/Dockerfile
 
 http://recipes.sinatrarb.com/p/deployment/lighttpd_proxied_to_thin

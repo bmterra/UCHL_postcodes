@@ -1,0 +1,15 @@
+---
+ environment: production
+ chdir: /app
+ address: 127.0.0.1
+ user: root
+ group: root
+ port: 4567
+ pid: /app/thin.pid
+ rackup: /app/config.ru
+ log: /app/thin.log
+ max_conns: 1024
+ timeout: 30
+ max_persistent_conns: 512
+ daemonize: true
+# http://recipes.sinatrarb.com/p/deployment/lighttpd_proxied_to_thin
