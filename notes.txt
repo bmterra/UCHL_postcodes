@@ -15,3 +15,5 @@
 
 
 Input - Coordenada
+
+docker run -d -p 80:8000 285ea757c0fb
