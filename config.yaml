@@ -1,8 +1,7 @@
 ---
  environment: production
  chdir: /app
- address: map.alors.blue
- #0.0.0.0
+ address: 0.0.0.0
  user: root
  group: root
  port: 8000
