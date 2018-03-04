@@ -1,6 +1,6 @@
 require 'csv'
 
-class Clinics
+class Clinics_from_csv
     def initialize
       Hash @clinics = {}
       # List files in dir
