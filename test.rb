@@ -1,63 +1,28 @@
-require 'nokogiri'
+require_relative 'lib/clinics'
+require_relative 'lib/poly'
+require 'pp'
 
-xml = File.open( "map/lines.kml" )
+object = Clinics.new
 
-doc = Nokogiri::XML(xml)
+point = {
+ 'lat' => 51.519840,
+ 'lon' => -0.137424
+ }
 
-entries = []
 
-doc.remove_namespaces!.xpath('//Placemark').each do |node|
+# point = {
+#     "lon"=>-0.1466417, "lat"=>51.5567423
+#  }
+#
 
-    nValues = {
-        'isPoly' => false,
-        'isPoint' => false,
-        'name' => '',
-        'family' => -1,
-        'points' => []
-    }
+for key in object.clinics.keys do
 
-    node.children.each do |var|
-        # Stop if empty
-        next if var.content.strip.length == 0
-        # Lookup content
-        case var.name
-        when 'name'
-            xxx = var.content.strip.split('-')
-            if xxx.length == 2
-                nValues['family'] = xxx[0].strip.to_i
-                nValues['name'] = xxx[1].strip
-            else
-                nValues['family'] = xxx[0].strip.to_i
-                nValues['name'] = 'Area'
-            end
-        when 'Polygon'
-            nValues['isPoly'] = true
-            str_points = var.at('//Polygon/outerBoundaryIs/LinearRing/coordinates').content
-            str_points = str_points.split(' ')
+  poly = object.clinics[key]['poly']
+  clinics = object.clinics[key]['clinics']
+  region = key
 
-            str_points.each do |point|
-                tmp = point.split(',')
-                nValues['points'] << {
-                    'lon' => tmp[0].strip.to_f,
-                    'lat' => tmp[1].strip.to_f
-                }
-            end
-        when 'Point'
-            nValues['isPoint'] = true
-            # lon, lat
-            tmp = var.content.split(',')
-            nValues['points'] << {
-                'lon' => tmp[0].strip.to_f,
-                'lat' => tmp[1].strip.to_f
-            }
-        end
-
-    end
-    # Ignore if invalid data
-    unless nValues['family'] == -1
-        entries << nValues
-        nValues
-    end
+  #puts region, "> #{p1}", poly, IsPointInPolygon(p1,poly)
+  if IsPointInPolygon(point,poly)
+      puts "In region #{region}, #{clinics}"
+  end
 end
-
-puts entries
