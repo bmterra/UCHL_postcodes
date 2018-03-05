@@ -2,6 +2,7 @@
 require 'sinatra'
 require_relative 'lib/poly'
 require_relative 'lib/clinics'
+require_relative 'lib/aux'
 
 object = Clinics.new
 
@@ -28,26 +29,39 @@ post '/postal_code' do
    "lat" => data['lat'],
    "lon" => data['lon']
   }
-  puts point
 
   for key in object.clinics.keys do
     poly = object.clinics[key]['poly']
     clinics = object.clinics[key]['clinics']
     region = key
     if IsPointInPolygon(point,poly)
-      return [
-        200,
-        {'Content-Type' => 'application/json'},
-        [{
-          "response" => true,
-          "address" => data['address'],
-          "region" => key,
-          "clinics" => clinics
-        }].to_json
-      ]
+        cList = []
+        aux = Aux.new
+        
+        clinics.each do |clinic|
+            xd = point['lat'] - clinic['lat']
+            yd = point['lon'] - clinic['lon']
+            dist = aux.distance(point,clinic)
+            cList.push({
+                'name' => clinic['name'],
+                'distance' => dist
+            })
+        end
+
+        return [
+          200,
+          {'Content-Type' => 'application/json'},
+          [{
+            "response" => true,
+            "address"  => data['address'],
+            "region"   => key,
+            "clinics"  => aux.orderDistance(cList)
+          }].to_json
+        ]
     end
   end
-  # Return false
+
+  # Else, return false
   return [
     200,
     {'Content-Type' => 'application/json'},
