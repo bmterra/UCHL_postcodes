@@ -36,7 +36,22 @@
       })
       .then(function (body) {
         console.log(JSON.stringify(body));
-        document.getElementById('location').innerHTML = JSON.stringify(body);
+        var json = body;
+
+        if (json['response']) {
+            var clinics = json['clinics'];
+            var myList = document.createElement('ul');
+
+            for (var j = 0; j < clinics.length; j++) {
+                var listItem = document.createElement('li');
+                listItem.textContent = clinics[j]['name']+' ('+parseFloat(Math.round(clinics[j]['distance'] * 100) / 100).toFixed(2)+'m)';
+                myList.appendChild(listItem);
+            }
+            document.getElementById('location').appendChild(myList);
+        } else {
+            document.getElementById('location').innerHTML = "No result.";
+        }
+
       });
     }
 

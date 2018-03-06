@@ -37,7 +37,7 @@ post '/postal_code' do
     if IsPointInPolygon(point,poly)
         cList = []
         aux = Aux.new
-        
+
         clinics.each do |clinic|
             xd = point['lat'] - clinic['lat']
             yd = point['lon'] - clinic['lon']
@@ -51,12 +51,12 @@ post '/postal_code' do
         return [
           200,
           {'Content-Type' => 'application/json'},
-          [{
+          {
             "response" => true,
             "address"  => data['address'],
             "region"   => key,
             "clinics"  => aux.orderDistance(cList)
-          }].to_json
+          }.to_json
         ]
     end
   end
