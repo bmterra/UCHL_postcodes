@@ -31,7 +31,7 @@
         body: JSON.stringify(data),
         headers: {}
       };
-      fetch('/postal_code', opts).then(function (response) {
+      fetch('/pc_coord', opts).then(function (response) {
         return response.json();
       })
       .then(function (body) {
@@ -41,6 +41,7 @@
         if (json['response']) {
             var clinics = json['clinics'];
             var myList = document.createElement('ul');
+            document.getElementById('location').innerHTML = '';
 
             for (var j = 0; j < clinics.length; j++) {
                 var listItem = document.createElement('li');
