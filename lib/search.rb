@@ -1,6 +1,6 @@
-require_relative 'lib/clinics'
-require_relative 'lib/aux'
-require_relative 'lib/poly'
+require_relative 'clinics'
+require_relative 'aux'
+require_relative 'poly'
 
 def CalculateRegion(point)
     object = Clinics.new

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Postal Code Mapper</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+
+
+    function callAPI(data) {
+        var target = document.getElementById('results');
+        target.innerHTML = '';
+        $.ajax({
+            async: true,
+            type: "POST",
+            url: "/pc_code",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response,status) {
+                var para = document.createElement("p");
+                var node = document.createTextNode(response['received']);
+                para.appendChild(node);
+                //alert("Ok "+status+' '+response['received']);
+                target.appendChild(para);
+            },
+            error: function (response,status) {
+                alert("Error "+status+' - '+response['postal_code']);
+            },
+            async: true
+        });
+    }
+
+
+    //  var opts = {
+    //    method: 'POST',
+    //    body: JSON.stringify(data),
+    //    headers: {}
+    //  };
+    //  fetch('', opts).then(function (response) {
+    //    return response.json();
+    //  })
+    //  .then(function (body) {
+    //    console.log(JSON.stringify(body));
+    //    var json = body;
+
+    //    if (json['response']) {
+    //        var clinics = json['clinics'];
+    //        var myList = document.createElement('ul');
+    //        document.getElementById('location').innerHTML = '';
+
+    //        for (var j = 0; j < clinics.length; j++) {
+    //            var listItem = document.createElement('li');
+    //            listItem.textContent = clinics[j]['name']+' ('+parseFloat(Math.round(clinics[j]['distance'] * 100) / 100).toFixed(2)+'m)';
+    //            myList.appendChild(listItem);
+    //        }
+    //        document.getElementById('location').appendChild(myList);
+    //    } else {
+    //        document.getElementById('location').innerHTML = "No result.";
+    //    }
+
+    //  });
+    //}
+
+  function action() {
+        var tmp = (document.getElementById('postal_codes').value);
+        var postalCodes = tmp.split("\n");
+        postalCodes.forEach(function(item) {
+            callAPI({ 'postal_code': item})
+        });
+  };
+
+    </script>
+    </head>
+    <body>
+        <textarea id="postal_codes" class="controls" type="text" name="Text1" cols="50" rows="20"></textarea>
+        <button onclick="action()" id="sendb" name="sendb">Send</button>
+        <div id="results"></div>
+</body>
+</html>

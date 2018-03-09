@@ -1,7 +1,7 @@
 # myapp.rb
 require 'sinatra'
 require_relative 'lib/search'
-
+require 'json'
 before do
   if request.body.size > 0
     request.body.rewind
@@ -11,6 +11,10 @@ end
 
 get '/' do
   send_file 'javascript/index2.html'
+end
+
+get '/multi' do
+  send_file 'javascript/mult.html'
 end
 
 get '/hello' do
@@ -30,10 +34,11 @@ end
 
 post '/pc_code' do
     data = @params
-
     postal = data['postal_code']
     # Fetch coordinates; return pc_coord code
-    point = CoordinatesFromPostalCode(postal)
+    #point = CoordinatesFromPostalCode(postal)
     # calculate region
-    return CalculateRegion(point)
+    #return CalculateRegion(point)
+    content_type :json
+    return {'received': postal}.to_json
 end
