@@ -28,7 +28,7 @@ def CalculateRegion(point)
             {'Content-Type' => 'application/json'},
             {
               "response" => true,
-              "address"  => data['address'],
+              "address"  => point['address'],
               "region"   => key,
               "clinics"  => aux.orderDistance(cList)
             }.to_json

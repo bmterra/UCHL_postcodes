@@ -11,6 +11,7 @@
     function callAPI(data) {
         var target = document.getElementById('results');
         target.innerHTML = '';
+        
         $.ajax({
             async: true,
             type: "POST",
@@ -20,7 +21,7 @@
             dataType: "json",
             success: function (response,status) {
                 var para = document.createElement("p");
-                var node = document.createTextNode(response['received']);
+                var node = document.createTextNode(JSON.stringify(response));
                 para.appendChild(node);
                 //alert("Ok "+status+' '+response['received']);
                 target.appendChild(para);
