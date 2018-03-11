@@ -18,8 +18,8 @@ get '/multi' do
   send_file 'javascript/mult.html'
 end
 
-get '/hello' do
-  'Hello World!'
+get '/' do
+  send_file 'javascript/index.html'
 end
 
 post '/pc_coord' do
