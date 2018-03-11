@@ -11,7 +11,7 @@
     function callAPI(data) {
         var target = document.getElementById('results');
         target.innerHTML = '';
-        
+
         $.ajax({
             async: true,
             type: "POST",
@@ -20,57 +20,27 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response,status) {
-                var para = document.createElement("p");
                 var node = document.createTextNode(JSON.stringify(response));
+                var para = document.createElement("p");
                 para.appendChild(node);
-                //alert("Ok "+status+' '+response['received']);
                 target.appendChild(para);
             },
             error: function (response,status) {
-                alert("Error "+status+' - '+response['postal_code']);
+                alert("Error: "+status+' - '+JSON.stringify(response));
             },
             async: true
         });
     }
 
-
-    //  var opts = {
-    //    method: 'POST',
-    //    body: JSON.stringify(data),
-    //    headers: {}
-    //  };
-    //  fetch('', opts).then(function (response) {
-    //    return response.json();
-    //  })
-    //  .then(function (body) {
-    //    console.log(JSON.stringify(body));
-    //    var json = body;
-
-    //    if (json['response']) {
-    //        var clinics = json['clinics'];
-    //        var myList = document.createElement('ul');
-    //        document.getElementById('location').innerHTML = '';
-
-    //        for (var j = 0; j < clinics.length; j++) {
-    //            var listItem = document.createElement('li');
-    //            listItem.textContent = clinics[j]['name']+' ('+parseFloat(Math.round(clinics[j]['distance'] * 100) / 100).toFixed(2)+'m)';
-    //            myList.appendChild(listItem);
-    //        }
-    //        document.getElementById('location').appendChild(myList);
-    //    } else {
-    //        document.getElementById('location').innerHTML = "No result.";
-    //    }
-
-    //  });
-    //}
-
-  function action() {
+    function action() {
         var tmp = (document.getElementById('postal_codes').value);
         var postalCodes = tmp.split("\n");
         postalCodes.forEach(function(item) {
-            callAPI({ 'postal_code': item})
+            if(item.length > 0) {
+                callAPI({ 'postal_code': item})
+            };
         });
-  };
+    };
 
     </script>
     </head>

@@ -40,8 +40,21 @@ def CalculateRegion(point)
     return [
       200,
       {'Content-Type' => 'application/json'},
-      [{
+      {
         "response" => false,
-      }].to_json
+      }.to_json
+    ]
+end
+
+
+def InvalidPostal(postal)
+    return [
+      200,
+      {'Content-Type' => 'application/json'},
+      {
+          "response" => true,
+          'address' => postal,
+          'message' => 'Invalid postal code.'
+      }.to_json
     ]
 end
