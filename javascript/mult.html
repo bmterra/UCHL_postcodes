@@ -5,12 +5,18 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     <script>
 
 
+    var pure_table = '<div class="row"><div class="col-sm-2"></div><div class="col-sm-8"><div class="panel panel-default"><div class="panel-body"><table id="tt" class="table table-hover table-condensed panel-primary"><thead><th>Postal code</th><th>Clinics</th><th>Region</th></thead><tbody></tbody></table></div></div></div><div class="col-sm-2"></div></div>'
+
+
+
     function callAPI(data) {
-        var target = document.getElementById('results');
-        target.innerHTML = '';
 
         $.ajax({
             async: true,
@@ -20,10 +26,37 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response,status) {
-                var node = document.createTextNode(JSON.stringify(response));
-                var para = document.createElement("p");
-                para.appendChild(node);
-                target.appendChild(para);
+                alert(JSON.stringify(response))
+                var address = response['address'];
+                if ('message' in response) {
+                    var clinics = response['message'];
+                    var region = '';
+                } else {
+                    var clinics = response['clinics'];
+                    var region = response['region'];
+                }
+                table = document.getElementById("tt").getElementsByTagName('tbody')[0];
+                var row = table.insertRow(-1);
+                var e_address = row.insertCell(-1);
+                e_address.textContent = address
+                var e_clinics = row.insertCell(-1);
+
+                var e_clinics_list = document.createElement("ul");
+
+                if( typeof clinics === 'string' ) {
+                    e_clinics.innerHTML = clinics
+                } else {
+                    e_clinics.appendChild(e_clinics_list);
+                    for (var j = 0; j < clinics.length; j++) {
+                        var listItem = document.createElement('li');
+                        listItem.textContent = clinics[j]['name']+' ('+parseFloat(Math.round(clinics[j]['distance'] * 100) / 100).toFixed(2)+'m)';
+                        e_clinics_list.appendChild(listItem);
+                    }
+                }
+
+                var e_region = row.insertCell(-1);
+                e_region.textContent = region;
+
             },
             error: function (response,status) {
                 alert("Error: "+status+' - '+JSON.stringify(response));
@@ -35,6 +68,10 @@
     function action() {
         var tmp = (document.getElementById('postal_codes').value);
         var postalCodes = tmp.split("\n");
+
+        var target = document.getElementById('results');
+        target.innerHTML = pure_table;
+
         postalCodes.forEach(function(item) {
             if(item.length > 0) {
                 callAPI({ 'postal_code': item})
@@ -45,8 +82,16 @@
     </script>
     </head>
     <body>
-        <textarea id="postal_codes" class="controls" type="text" name="Text1" cols="50" rows="20"></textarea>
-        <button onclick="action()" id="sendb" name="sendb">Send</button>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10"><textarea id="postal_codes" class="form-control" type="text" name="Text1" cols="20" rows="20"></textarea></div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10"><button type="button" class="btn" onclick="action()" id="sendb" name="sendb">Send</button></div>
+            <div class="col-sm-1"></div>
+        </div>
         <div id="results"></div>
 </body>
 </html>

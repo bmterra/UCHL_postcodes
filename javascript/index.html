@@ -9,46 +9,17 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </head>
   <body>
-
+      <h1 class="text-center">Postal codes</h1>
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
-
-            <div class="panel panel-default">
-                <div class="panel-body">
-
-                    <table class="table table-hover table-condensed panel-primary">
-                        <thead>
-                            <th>Postal code</th>
-                            <th>Clinics</th>
-                            <th>Region</th>
-                        </thead>
-                        <tr>
-                            <td>Kings Cross, London N1C 4BT, UK</td>
-                            <td>
-                                <ul>
-                                    <li>Somers Town Living Space (810.04)</li>
-                                    <li>Regents Park Children's centre (1247)</li>
-                                    <li>Cumberland Market (registered patients only) (1363.21)</li>
-                                </ul>
-                            </td>
-                            <td>7</td>
-                        </tr>
-                        <tr>
-                            <td>N1C EEE</td>
-                            <td rowspan="2">Invalid postal code.</td>
-                        </tr>
-                    </table>
-                </div>
+            <div class="btn-group btn-group-justified">
+                <a href="/single" class="btn btn-primary">Single</a>
+                <a href="/multi" class="btn btn-primary">Multiple</a>
             </div>
         </div>
         <div class="col-sm-2"></div>
-    </div>
-
-    <p>
-        {"response":true,"address":"Kings Cross, London N1C 4BT, UK","region":7,"clinics":[{"name":"Somers Town Living Space","distance":810.0436578174894},{"name":"Regents Park Children's centre","distance":1247.8311048830776},{"name":"Cumberland Market (registered patients only)","distance":1363.219952931879}]}
-        <br>{"response":true,"address":"ssssss","message":"Invalid postal code."}
-    </p>
+      </div>
 
   </body>
 </html>
