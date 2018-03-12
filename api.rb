@@ -42,5 +42,7 @@ post '/pc_code' do
     unless point
         return InvalidPostal(postal)
     end
-    return CalculateRegion(point)
+    xx =  CalculateRegion(point)
+    puts xx
+    return xx
 end

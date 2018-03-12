@@ -11,10 +11,10 @@ def CoordinatesFromPostalCode(postal_code)
     r = JSON.parse(response.body)
     unless r['status'] == "OK"
         if r.has_key?("error_message")
-            puts "Error: #{r['error_message']}"
+            #puts "Error: #{r['error_message']}"
             return false
         elsif r['results'].length == 0
-            puts "No results"
+            #puts "No results"
             return false
         end
     end
