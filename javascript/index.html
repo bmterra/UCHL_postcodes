@@ -1,119 +1,25 @@
 <!DOCTYPE html>
+
+
 <html>
   <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <title>Polygon arrays</title>
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 50%;
-        width: 50%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
+    <title>Post code</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </head>
   <body>
-    <div id="map"></div>
-    <script>
-      // This example requires the Geometry library. Include the libraries=geometry
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=geometry">
-      // https://developers.google.com/maps/documentation/javascript/examples/polygon-arrays
-      //
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 51.5225, lng: -0.1207824},
-          zoom: 13,
-        });
+      <h1 class="text-center">Postal codes</h1>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="btn-group btn-group-justified">
+                <a href="/single" class="btn btn-primary">Single</a>
+                <a href="/multi" class="btn btn-primary">Multiple</a>
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
 
-
-        // var a0 = [
-        //
-        // ]
-        var coords = [
-          {lng: -0.1326513, lat: 51.5355784},
-          {lng: -0.1326728, lat: 51.5369331},
-          {lng: -0.1311815, lat: 51.5375137},
-          {lng: -0.1297438, lat: 51.5362925},
-          {lng: -0.1275229, lat: 51.5379275},
-          {lng: -0.1246798, lat: 51.5394756},
-          {lng: -0.1250768, lat: 51.5411973},
-          {lng: -0.1257098, lat: 51.5422649},
-          {lng: -0.1270294, lat: 51.5475026},
-          {lng: -0.1279736, lat: 51.5483133},
-          {lng: -0.1295239, lat: 51.5490805},
-          {lng: -0.1301408, lat: 51.5496142},
-          {lng: -0.1307148, lat: 51.5507117},
-          {lng: -0.1309508, lat: 51.5514622},
-          {lng: -0.134958, lat: 51.5540406},
-          {lng: -0.1355052, lat: 51.5547811},
-          {lng: -0.1370394, lat: 51.5552814},
-          {lng: -0.138402, lat: 51.556909},
-          {lng: -0.1401186, lat: 51.5594104},
-          {lng: -0.1432514, lat: 51.5582765},
-          {lng: -0.1466417, lat: 51.5567423},
-          {lng: -0.1450968, lat: 51.5552847},
-          {lng: -0.1440829, lat: 51.5540106},
-          {lng: -0.1422483, lat: 51.5529199},
-          {lng: -0.1407194, lat: 51.5512721},
-          {lng: -0.1406336, lat: 51.5508518},
-          {lng: -0.1412076, lat: 51.5482132},
-          {lng: -0.1417762, lat: 51.5465319},
-          {lng: -0.1415563, lat: 51.5449739},
-          {lng: -0.1416153, lat: 51.5437796},
-          {lng: -0.1424253, lat: 51.5390552},
-          {lng: -0.1398182, lat: 51.5404966}
-        ];
-
-        var polygon = new google.maps.Polygon({paths: coords});
-
-        var poly0 = new google.maps.Polygon({
-          paths: coords,
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 3,
-          fillColor: '#FF0000',
-          fillOpacity: 0.35
-        });
-        poly0.setMap(map);
-
-        google.maps.event.addListener(map, 'click', function(e) {
-          var resultColor =
-              google.maps.geometry.poly.containsLocation(e.latLng, polygon) ?
-              'blue' :
-              'red';
-
-          var resultPath =
-              google.maps.geometry.poly.containsLocation(e.latLng, polygon) ?
-              // A triangle.
-              "m 0 -1 l 1 2 -2 0 z" :
-              google.maps.SymbolPath.CIRCLE;
-
-          new google.maps.Marker({
-            position: e.latLng,
-            map: map,
-            icon: {
-              path: resultPath,
-              fillColor: resultColor,
-              fillOpacity: .2,
-              strokeColor: 'white',
-              strokeWeight: .5,
-              scale: 10
-            }
-          });
-        });
-      }
-
-      // https://maps.googleapis.com/maps/api/geocode/json?&sensor=false&key=#{api}&components=postal_code:#{postal_code}
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlQB6wQrQF2bszfv3hEKKOss1MFHSAqBI&libraries=geometry&callback=initMap"
-         async defer></script>
   </body>
 </html>

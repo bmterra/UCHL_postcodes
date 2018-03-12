@@ -1,11 +1,8 @@
 # myapp.rb
 require 'sinatra'
-require_relative 'lib/poly'
-require_relative 'lib/clinics'
-require_relative 'lib/aux'
-
-object = Clinics.new
-
+require_relative 'lib/search'
+require_relative 'lib/coords'
+require 'json'
 before do
   if request.body.size > 0
     request.body.rewind
@@ -13,61 +10,39 @@ before do
   end
 end
 
+get '/single' do
+  send_file 'javascript/single.html'
+end
+
+get '/multi' do
+  send_file 'javascript/mult.html'
+end
+
+get '/test' do
+  send_file 'javascript/test.html'
+end
 get '/' do
-  send_file 'javascript/index2.html'
+  send_file 'javascript/index.html'
 end
 
-get '/hello' do
-  'Hello World!'
-end
-
-post '/postal_code' do
+post '/pc_coord' do
   data = @params
-  puts data
-
   point = {
+   "address" => data['address'],
    "lat" => data['lat'],
    "lon" => data['lon']
   }
+  return CalculateRegion(point)
+end
 
-  for key in object.clinics.keys do
-    poly = object.clinics[key]['poly']
-    clinics = object.clinics[key]['clinics']
-    region = key
-    if IsPointInPolygon(point,poly)
-        cList = []
-        aux = Aux.new
-
-        clinics.each do |clinic|
-            xd = point['lat'] - clinic['lat']
-            yd = point['lon'] - clinic['lon']
-            dist = aux.distance(point,clinic)
-            cList.push({
-                'name' => clinic['name'],
-                'distance' => dist
-            })
-        end
-
-        return [
-          200,
-          {'Content-Type' => 'application/json'},
-          {
-            "response" => true,
-            "address"  => data['address'],
-            "region"   => key,
-            "clinics"  => aux.orderDistance(cList)
-          }.to_json
-        ]
+post '/pc_code' do
+    data = @params
+    postal = data['postal_code']
+    point = CoordinatesFromPostalCode(postal)
+    unless point
+        return InvalidPostal(postal)
     end
-  end
-
-  # Else, return false
-  return [
-    200,
-    {'Content-Type' => 'application/json'},
-    [{
-      "response" => false,
-    }].to_json
-  ]
-
+    xx =  CalculateRegion(point)
+    puts xx
+    return xx
 end

@@ -27,3 +27,11 @@ https://developers.google.com/maps/documentation/javascript/reference#poly
 
 # Thin + lighttpd + sinatra
 http://recipes.sinatrarb.com/p/deployment/lighttpd_proxied_to_thin
+
+
+SW1Y6AH
+n1c4bt
+asdad
+SW1Y
+w1d
+WC2E 9DD

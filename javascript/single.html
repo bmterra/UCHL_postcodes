@@ -31,7 +31,7 @@
         body: JSON.stringify(data),
         headers: {}
       };
-      fetch('/postal_code', opts).then(function (response) {
+      fetch('/pc_coord', opts).then(function (response) {
         return response.json();
       })
       .then(function (body) {
@@ -41,6 +41,7 @@
         if (json['response']) {
             var clinics = json['clinics'];
             var myList = document.createElement('ul');
+            document.getElementById('location').innerHTML = '';
 
             for (var j = 0; j < clinics.length; j++) {
                 var listItem = document.createElement('li');
@@ -68,24 +69,9 @@
                 return;
             }
 
-        var address = '';
-        if (place.address_components) {
-            address = [
-                (place.address_components[0] && place.address_components[0].short_name || ''),
-                (place.address_components[1] && place.address_components[1].short_name || ''),
-                (place.address_components[2] && place.address_components[2].short_name || '')
-              ].join(', ');
-        }
-        /*********************************************************************/
-        /* var address contain your autocomplete address *********************/
-        /* place.geometry.location.lat() && place.geometry.location.lat() ****/
-        /* will be used for current address latitude and longitude************/
-        /*********************************************************************/
-        document.getElementById('lat').innerHTML = 'lat '+place.geometry.location.lat();
-        document.getElementById('long').innerHTML = 'lon '+place.geometry.location.lng();
         // Do call to service
         callAPI({
-          address: address,
+          address: place.formatted_address,
           lat: place.geometry.location.lat(),
           lon: place.geometry.location.lng()})
         });
