@@ -23,7 +23,8 @@
 
     var pure_table = '<div class="row"><div class="col-sm-2"></div><div class="col-sm-8"><div class="panel panel-default"><div class="panel-body"><table id="tt" class="table table-hover table-condensed panel-primary"><thead><th>Postal code</th><th>Clinics</th><th>Region</th></thead><tbody></tbody></table></div></div></div><div class="col-sm-2"></div></div>'
 
-
+    var received = 0
+    var total = 0
 
     function callAPI(data) {
 
@@ -43,6 +44,13 @@
                     var clinics = response['clinics'];
                     var region = response['region'];
                 }
+                // Update progress
+                received += 1
+                var bar = document.getElementById("pbar")
+                bar.setAttribute('aria-valuenow', received);
+                bar.textContent = received+"/"+total
+                bar.setAttribute('style', 'width:'+received*100/total+"%");
+                // Display data
                 table = document.getElementById("tt").getElementsByTagName('tbody')[0];
                 var row = table.insertRow(-1);
                 var e_address = row.insertCell(-1);
@@ -80,9 +88,18 @@
         var target = document.getElementById('results');
         target.innerHTML = pure_table;
 
+        total = postalCodes.length
+        received = 0
+        var bar = document.getElementById("pbar")
+        bar.setAttribute('aria-valuemax', total);
+        bar.setAttribute('aria-valuenow', received);
+        bar.setAttribute('style', 'width:0%');
         postalCodes.forEach(function(item) {
             if(item.length > 0) {
                 callAPI({ 'postal_code': item})
+            } else {
+                received += 1
+                bar.setAttribute('aria-valuenow', received);
             };
         });
     };
@@ -98,6 +115,15 @@
         <div class="row">
             <div class="col-sm-1"></div>
             <div class="col-sm-10"><button type="button" class="btn" onclick="action()" id="sendb" name="sendb">Send</button></div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <div id="pbar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                    0%
+                </div>
+            </div>
             <div class="col-sm-1"></div>
         </div>
         <div id="results"></div>
