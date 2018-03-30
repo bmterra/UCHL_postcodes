@@ -51,14 +51,14 @@ def CalculateRegion(point)
 end
 
 
-def InvalidPostal(postal)
+def Message(postal,message)
     return [
       200,
       {'Content-Type' => 'application/json'},
       {
           'response' => true,
           'query'    => postal,
-          'message'  => 'No results'
+          'message'  => message
       }.to_json
     ]
 end
