@@ -38,11 +38,9 @@ end
 post '/pc_code' do
     data = @params
     postal = data['postal_code']
-    point = CoordinatesFromPostalCode(postal)
-    unless point
+    place = CoordinatesFromPostalCode(postal)
+    unless place
         return InvalidPostal(postal)
     end
-    xx =  CalculateRegion(point)
-    puts xx
-    return xx
+    return CalculateRegion(place)
 end

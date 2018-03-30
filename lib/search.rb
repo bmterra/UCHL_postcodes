@@ -27,10 +27,11 @@ def CalculateRegion(point)
             200,
             {'Content-Type' => 'application/json'},
             {
-              "response" => true,
-              "address"  => point['address'],
-              "region"   => key,
-              "clinics"  => aux.orderDistance(cList)
+              'response' => true,
+              'query'    => point['query'],
+              'address'  => point['address'],
+              'region'   => key,
+              'clinics'  => aux.orderDistance(cList)
             }.to_json
           ]
       end
@@ -41,9 +42,10 @@ def CalculateRegion(point)
       200,
       {'Content-Type' => 'application/json'},
       {
-        "response" => false,
-        'address' => point['address'],
-        "message"  => "Outside"
+        'response' => false,
+        'query'    => point['query'],
+        'address'  => point['address'],
+        'message'  => 'Outside'
       }.to_json
     ]
 end
@@ -54,9 +56,9 @@ def InvalidPostal(postal)
       200,
       {'Content-Type' => 'application/json'},
       {
-          "response" => true,
-          'address' => postal,
-          'message' => 'No results (recent/invalid postal code?)'
+          'response' => true,
+          'query'    => postal,
+          'message'  => 'No results'
       }.to_json
     ]
 end

@@ -62,7 +62,7 @@
     </script>
 
     <script>
-    var pure_table = '<div class="row"><div class="col-sm-2"></div><div class="col-sm-8"><div class="panel panel-default"><div class="panel-body"><table id="tt" class="table table-hover table-condensed panel-primary"><thead><th>Postal code</th><th>Clinics</th><th>Region</th></thead><tbody></tbody></table></div></div></div><div class="col-sm-2"></div></div>'
+    var pure_table = '<div class="row"><div class="col-sm-2"></div><div class="col-sm-8"><div class="panel panel-default"><div class="panel-body"><table id="tt" class="table table-hover table-condensed panel-primary"><thead><th>Postal code</th><th>Address</th><th>Clinics</th><th>Zone</th></thead><tbody></tbody></table></div></div></div><div class="col-sm-2"></div></div>'
 
     var received = 0
     var total = 0
@@ -77,6 +77,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response,status) {
+                var query = response['query'];
                 var address = response['address'];
                 if ('message' in response) {
                     var clinics = response['message'];
@@ -94,10 +95,14 @@
                 // Display data
                 table = document.getElementById("tt").getElementsByTagName('tbody')[0];
                 var row = table.insertRow(-1);
+
+                var e_query = row.insertCell(-1);
+                e_query.textContent = query
+
                 var e_address = row.insertCell(-1);
                 e_address.textContent = address
-                var e_clinics = row.insertCell(-1);
 
+                var e_clinics = row.insertCell(-1);
                 var e_clinics_list = document.createElement("ul");
 
                 if( typeof clinics === 'string' ) {
