@@ -3,6 +3,8 @@ require 'sinatra'
 require_relative 'lib/search'
 require_relative 'lib/coords'
 require 'json'
+set :views, settings.root + '/templates'
+
 before do
   if request.body.size > 0
     request.body.rewind
@@ -11,18 +13,16 @@ before do
 end
 
 get '/single' do
-  send_file 'javascript/single.html'
+  apikey = 'AIzaSyCiTTnFGSuXdlTcACgx5eGm9VLroAqvHds'
+  erb :single, :apikey => apikey
 end
 
 get '/multi' do
-  send_file 'javascript/mult.html'
+  erb :multi
 end
 
-get '/test' do
-  send_file 'javascript/test.html'
-end
 get '/' do
-  send_file 'javascript/index.html'
+  erb :index
 end
 
 post '/pc_coord' do
