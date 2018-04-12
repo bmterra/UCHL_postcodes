@@ -1,37 +1,18 @@
 # UCLH_map
-- https://www.google.com/maps/d/u/1/edit?mid=1SpVytCgadcq_veNJaTq_E_aAsBjXMN0_&ll=51.5341934123463%2C-0.14720940000006522&z=13
-- https://stackoverflow.com/questions/11716268/point-in-polygon-algorithm#11716371
+Webservice to check if a postal code belongs to any zone defined by a google maps polygon.
 
-# Execution
+## Google API
+https://developers.google.com/maps/documentation/javascript/reference#poly
 
-1. Get Postal code
-2. Get Coordinates from postal code
-wget "https://www.google.com/maps/d/u/1/kml?mid=1SpVytCgadcq_veNJaTq_E_aAsBjXMN0_&output=kml&lid=djxCNg32Ri4&forcekml=1&cid=mp&cv=9cs9bHQCIao.pt_PT." -O text.kml
-3. Load polygons coordinates from csv / mem
-4. For each set, check if point belongs
-5. If point belongs, load clinics coordinates for respective polygon
-6. Calculate distance to each clinic
-7. Return closest, or list per distance
-
-
-
-
-# All postal codes solution
+## All postal codes solution
 - http://postgis.net
 - https://www.doogal.co.uk/london_postcodes.php
 
+- https://stackoverflow.com/questions/11716268/point-in-polygon-algorithm#11716371
+- https://wrf.ecse.rpi.edu//Research/Short_Notes/pnpoly.html
 
-# Google API
-
-https://developers.google.com/maps/documentation/javascript/reference#poly
-
-# Thin + lighttpd + sinatra
+## Thin + lighttpd + sinatra
 http://recipes.sinatrarb.com/p/deployment/lighttpd_proxied_to_thin
 
-
-SW1Y6AH
-n1c4bt
-asdad
-SW1Y
-w1d
-WC2E 9DD
+## UCLH use case
+- https://www.google.com/maps/d/u/1/edit?mid=1SpVytCgadcq_veNJaTq_E_aAsBjXMN0_&ll=51.5341934123463%2C-0.14720940000006522&z=13
