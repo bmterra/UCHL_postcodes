@@ -1,6 +1,7 @@
 # UCLH_map
 Webservice to check if a postal code belongs to any zone defined by a google maps polygon.
-
+Written in Ruby, using Google Maps API to find a postal code's geolocation.
+Map with zones parsed from `kml` file
 ## Google API
 https://developers.google.com/maps/documentation/javascript/reference#poly
 
