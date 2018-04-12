@@ -5,7 +5,15 @@ require_relative 'lib/coords'
 require 'json'
 require 'toml'
 set :views, settings.root + '/templates'
-config = TOML.load_file("config.toml")
+
+if ENV['api_key']
+    puts("Reading apikey from environment")
+    apikey = ENV['api_key']
+else
+    puts("Reading apikey from config file")
+    config = TOML.load_file("config.toml")
+    apikey = config['google']['api_key']
+end
 
 before do
   if request.body.size > 0
@@ -15,7 +23,6 @@ before do
 end
 
 get '/single' do
-  apikey = config['google']['api_key']
   erb :single, :apikey => apikey
 end
 
