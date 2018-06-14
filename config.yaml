@@ -4,7 +4,7 @@
  address: 0.0.0.0
  user: root
  group: root
- port: 8000
+ port: 80
  pid: /app/thin.pid
  rackup: /app/config.ru
  log: /app/thin.log
