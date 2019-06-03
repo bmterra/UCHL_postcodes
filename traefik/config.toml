@@ -117,3 +117,6 @@ swarmMode = false
     [entryPoints.traefik]
         address = ":8000"
         compress = true
+        [entryPoints.dashboard.auth]
+            [entryPoints.dashboard.auth.basic]
+            users = ["admin:$apr1$Kgg7cBMj$qF3QSRNmOCVZN9hUWEKCZ/"]
