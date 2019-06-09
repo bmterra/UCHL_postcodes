@@ -6,6 +6,8 @@ require 'json'
 require 'toml'
 set :views, settings.root + '/templates'
 
+apikey = ''
+
 if ENV['api_key']
     puts("Reading apikey from environment")
     apikey = ENV['api_key']
