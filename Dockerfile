@@ -2,7 +2,7 @@ FROM ruby:latest
 MAINTAINER Bruno Terra
 
 LABEL traefik.backend=uchl_map
-LABEL traefik.frontend.rule=Host:postcodes.alors.blue
+LABEL traefik.frontend.rule=Host:postcodes.sneakyrogue.red
 LABEL traefik.enable=true
 LABEL traefik.port=80
 
