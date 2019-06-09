@@ -1,6 +1,7 @@
 # docker inspect -f '{{index .ContainerConfig.Labels "traefik.domain"}}' uchl_map
 # docker run -d
 # docker build --tag uchl_map .
+# traefik.enable=true
 
 # docker run -d uchl_map
 #labels:
@@ -57,7 +58,7 @@ watch = true
 # Optional
 # Default: true
 #
-exposedByDefault = true
+exposedByDefault = false
 
 # Use the IP address from the binded port instead of the inner network one.
 # For specific use-case :)
@@ -83,7 +84,7 @@ swarmMode = false
 #  cert = "/etc/ssl/docker.crt"
 #  key = "/etc/ssl/docker.key"
 #  insecureSkipVerify = true
-
+network = "web"
 
 # API definition
 [api]
@@ -118,5 +119,6 @@ swarmMode = false
         address = ":8000"
         compress = true
         [entryPoints.dashboard.auth]
-            [entryPoints.dashboard.auth.basic]
+          [entryPoints.dashboard.auth.basic]
             users = ["admin:$apr1$Kgg7cBMj$qF3QSRNmOCVZN9hUWEKCZ/"]
+
