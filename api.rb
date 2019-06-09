@@ -25,7 +25,8 @@ before do
 end
 
 get '/single' do
-  erb :single, :apikey => apikey
+  @apikey = apikey
+  erb :single
 end
 
 get '/multi' do
