@@ -1,0 +1,13 @@
+[Unit]
+Description=Traefik container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker run -d -p 8000:8000 -p 80:80 -p 443:443 -t traefik -v /home/nakiski/UCLH_MAP/traefik/config.toml:/etc/traefik/traefik.toml -v /var/run/docker.sock:/var/run/docker.sock --network web traefik
+ExecStop=/usr/bin/docker stop -t 2 traefik
+
+[Install]
+WantedBy=default.target
+
