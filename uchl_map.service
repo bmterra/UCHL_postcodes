@@ -1,0 +1,17 @@
+[Unit]
+Description=UCHL Map
+After=docker.service
+Requires=docker.service
+After=traefik.service
+Requires=traefik.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop %n
+ExecStartPre=-/usr/bin/docker rm %n
+ExecStart=/usr/bin/docker run --rm --network web --name %n uchl_map
+
+[Install]
+WantedBy=multi-user.target
+	
