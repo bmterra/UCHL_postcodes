@@ -5,7 +5,7 @@ After=docker.service
 
 [Service]
 Restart=always
-ExecStart=/usr/bin/docker run -p 8000:8000 -p 80:80  -p 443:443 -v /home/nakiski/UCHL_map/traefik/config.toml:/etc/traefik/traefik.toml -v /var/run/docker.sock:/var/run/docker.sock --name %n --network web traefik
+ExecStart=/usr/bin/docker run -p 8000:8000 -p 80:80  -p 443:443 -v /home/nakiski/UCLH_map/traefik/config.toml:/etc/traefik/traefik.toml -v /var/run/docker.sock:/var/run/docker.sock --name %n --network web traefik
 ExecStartPre=-/usr/bin/docker stop %n
 ExecStartPre=-/usr/bin/docker rm %n
 ExecStop=/usr/bin/docker stop -t 2 %n
